@@ -124,25 +124,36 @@
     line-height: 1.3;
   }
 
-  .loading-bar-wrap {
+  .loading-button-wrap {
     margin-top: 2.5rem;
-    width: min(300px, 70vw);
-    height: 2px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 2px;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
   }
 
-  .loading-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0.9));
-    border-radius: 2px;
-    animation: loadFill 2.2s ease forwards;
+  .next-button {
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.6);
+    padding: 0.75rem 2rem;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.05em;
+    font-style: italic;
   }
 
-  @keyframes loadFill {
-    from { width: 0%; }
-    to { width: 100%; }
+  .next-button:hover {
+    background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2));
+    border-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255,255,255,0.2);
+  }
+
+  .next-button:active {
+    transform: translateY(0);
   }
 
   /* ========== MAIN CONTENT ========== */
@@ -161,6 +172,13 @@
     padding: 2rem;
     position: relative;
     overflow: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+
+  #gift-section.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   #gift-section::before {
@@ -239,6 +257,8 @@
     opacity: 1;
   }
 
+  /* envelope section removed */
+
   /* ========== BOUQUET SECTION ========== */
   .bouquet-section {
     background: linear-gradient(180deg, #FDF0F5 0%, #F8E8F2 100%);
@@ -268,6 +288,240 @@
     justify-content: center;
     margin: 1.5rem auto 0;
     max-width: 600px;
+  }
+
+  .bouquet-container img {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 0 16px 40px rgba(140,60,100,0.16);
+    object-fit: contain;
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(180,100,140,0.15);
+  }
+
+  .bouquet-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    position: relative;
+  }
+
+  .bouquet-ornament {
+    font-size: clamp(32px, 6vw, 64px);
+    opacity: 0;
+    animation: ornamentFloat 1s ease-out 0.3s forwards;
+    filter: drop-shadow(0 4px 12px rgba(140,60,100,0.15));
+  }
+
+  .bouquet-ornament.left {
+    animation-delay: 0.2s;
+  }
+
+  .bouquet-ornament.right {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes ornamentFloat {
+    0% {
+      opacity: 0;
+      transform: scale(0.6) translateY(20px);
+    }
+    70% {
+      opacity: 1;
+      transform: scale(1.1) translateY(-8px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .bouquet-container.reveal {
+    animation: bouquetAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .bouquet-container.reveal.in-view {
+    animation: bouquetAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes bouquetAppear {
+    0% {
+      opacity: 0;
+      transform: scale(0.85) translateY(24px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  /* ========== SONGS SECTION ========== */
+  .songs-section {
+    background: linear-gradient(180deg, #FDF0F5 0%, #F5E8F0 50%, #F0DAEB 100%);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .songs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 2.5rem auto 0;
+  }
+
+  .song-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    border: 1.5px solid rgba(180, 100, 140, 0.25);
+    box-shadow: 0 8px 32px rgba(140, 60, 100, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .song-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink-deep), var(--pink-soft), var(--pink-pale));
+    opacity: 0.6;
+  }
+
+  .song-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 48px rgba(140, 60, 100, 0.18);
+    border-color: rgba(180, 100, 140, 0.4);
+  }
+
+  .song-emoji {
+    font-size: 48px;
+    margin-bottom: 1rem;
+    animation: gentle-bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes gentle-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .song-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--pink-deep);
+    margin: 0.75rem 0 0.25rem;
+    font-weight: 700;
+  }
+
+  .song-artist {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .song-description {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    min-height: 60px;
+  }
+
+  .song-link {
+    display: inline-block;
+    color: var(--pink-deep);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0.5rem 1rem;
+    border: 1.5px solid var(--pink-soft);
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .song-link:hover {
+    background: linear-gradient(135deg, var(--pink-soft), var(--pink-pale));
+    color: #fff;
+    border-color: var(--pink-deep);
+    transform: scale(1.05);
+  }
+
+  .album-photo-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto 1rem;
+  }
+
+  .album-photo-slot {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: linear-gradient(135deg, #F5D8E8, #EFC4D8, #F0D0E4);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid rgba(180, 100, 140, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(140, 60, 100, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .album-photo-slot:hover {
+    box-shadow: 0 12px 32px rgba(140, 60, 100, 0.25);
+    border-color: rgba(180, 100, 140, 0.4);
+  }
+
+  .album-photo-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .album-photo-placeholder {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .album-cassette {
+    position: absolute;
+    bottom: -12px;
+    right: -12px;
+    font-size: 72px;
+    opacity: 0;
+    animation: cassetteFloat 1s ease-out 0.5s forwards;
+    filter: drop-shadow(0 4px 12px rgba(140, 60, 100, 0.2));
+  }
+
+  @keyframes cassetteFloat {
+    0% {
+      opacity: 0;
+      transform: scale(0.5) rotate(-20deg);
+    }
+    70% {
+      opacity: 1;
+      transform: scale(1.15) rotate(10deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
   }
 
   /* ========== MEMORIES SECTION ========== */
@@ -520,6 +774,7 @@
     .photos-grid { grid-template-columns: 1fr; }
     .message-card { padding: 1.5rem 1.25rem; }
     .loading-collage { gap: 6px; }
+    .letter-text { font-size: 16px; line-height: 1.8; }
   }
 </style>
 </head>
@@ -530,7 +785,7 @@
   <div class="loading-collage">
     <!-- FOTO 1 -->
     <div class="collage-frame" id="cf1">
-      <img src="" alt="IMG-20260616-WA0015.jpg" id="load-img-1" style="display:none">
+      <img src="" alt="foto 1" id="load-img-1" style="display:none">
       <div class="placeholder-text" id="cf1-ph">
         <div class="placeholder-icon">🌸</div>
         Ganti dengan foto pertama
@@ -559,16 +814,18 @@
   <p class="loading-tagline">"Finally, kita sampai juga di fase ini yaa.."</p>
   <h1 class="loading-title">Laporan Pertanggungjawaban<br>POSDA 25/26</h1>
 
-  <div class="loading-bar-wrap">
-    <div class="loading-bar-fill"></div>
+  <div class="loading-button-wrap">
+    <button class="next-button" id="next-btn" onclick="proceedToEnvelope()">Next</button>
   </div>
 </div>
 
 <!-- ===== MAIN CONTENT ===== -->
 <div id="main-content">
 
+  <!-- envelope section removed -->
+
   <!-- GIFT SECTION -->
-  <section id="gift-section">
+  <section id="gift-section" style="display:none;">
     <div class="gift-wrapper">
 
       <div class="gift-box" id="gift-box" onclick="openGift()" title="Klik untuk membuka hadiah">
@@ -623,8 +880,10 @@
         </svg>
       </div>
 
+      <p class="gift-label">Hai, Jelita Rachmana.</p>
       <p class="gift-label">Aku ada sedikit hadiah untukmu.</p>
-      <p class="gift-note">✦ hadiahnya cukup klik sekali saja ✦</p>
+      <p class="gift-label">SEMOGAA KAMUU SUKAAA!!</p>
+      <p class="gift-note">✦ Klik gambar kotak diatas yaa.. ✦</p>
     </div>
   </section>
 
@@ -633,169 +892,66 @@
 
     <!-- BOUQUET SECTION -->
     <section class="bouquet-section">
-      <h2 class="section-title reveal">This is Digital Bouquet for you</h2>
-      <p class="section-note reveal">I'm sorry I don't know what's your favorite color</p>
+      <h2 class="section-title reveal">Pink Digital Bouquet for you..</h2>
+      <p class="section-note reveal">I'm sorry because i can't bring the real one :(</p>
 
-      <div class="bouquet-container reveal">
-        <!-- Hand-crafted SVG Bouquet -->
-        <svg viewBox="0 0 500 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;" aria-label="Digital bouquet of mixed flowers">
+      <div class="bouquet-wrapper">
+        <div class="bouquet-container reveal">
+          <!-- Ganti src di bawah ini dengan file gambar bouquet dari Canva atau aset lain -->
+          <img id="bouquet-image" src="buket.png" alt="Buket bunga" />
+        </div>
+      </div>
+    </section>
 
-          <!-- Stems -->
-          <g stroke="#4A7C59" stroke-width="3" fill="none" stroke-linecap="round">
-            <path d="M250 480 C248 440 245 400 242 360"/>
-            <path d="M250 480 C252 442 258 395 268 355"/>
-            <path d="M250 480 C246 448 230 410 210 375"/>
-            <path d="M250 480 C253 450 270 415 290 380"/>
-            <path d="M250 480 C247 445 235 405 225 370"/>
-            <path d="M250 480 C252 444 265 408 278 370"/>
-            <path d="M250 480 C248 452 240 418 235 388"/>
-          </g>
+    <div class="section-divider"></div>
 
-          <!-- Leaves -->
-          <g fill="#5A9468" opacity="0.85">
-            <ellipse cx="228" cy="395" rx="18" ry="9" transform="rotate(-35 228 395)"/>
-            <ellipse cx="272" cy="388" rx="16" ry="8" transform="rotate(30 272 388)"/>
-            <ellipse cx="218" cy="420" rx="14" ry="7" transform="rotate(-45 218 420)"/>
-            <ellipse cx="282" cy="415" rx="15" ry="7" transform="rotate(40 282 415)"/>
-            <ellipse cx="238" cy="410" rx="12" ry="6" transform="rotate(-20 238 410)"/>
-          </g>
+    <!-- SONGS SECTION -->
+    <section class="songs-section">
+      <h2 class="section-title reveal">Lagu-lagu yang Mengingatkanku Padamu</h2>
+      <p class="section-note reveal">Tiga lagu yang sesuai dengan dirimu</p>
 
-          <!-- ~~~ FLOWER 1: Pink Rose (center-left) ~~~ -->
-          <g transform="translate(215,310)">
-            <circle cx="0" cy="0" r="8" fill="#D4537E"/>
-            <ellipse cx="-12" cy="-6" rx="14" ry="10" fill="#C4607F" transform="rotate(-30 -12 -6)"/>
-            <ellipse cx="12" cy="-6" rx="14" ry="10" fill="#C4607F" transform="rotate(30 12 -6)"/>
-            <ellipse cx="0" cy="-14" rx="13" ry="10" fill="#D98EA5" transform="rotate(0 0 -14)"/>
-            <ellipse cx="-14" cy="6" rx="13" ry="9" fill="#D98EA5" transform="rotate(-50 -14 6)"/>
-            <ellipse cx="14" cy="6" rx="13" ry="9" fill="#D98EA5" transform="rotate(50 14 6)"/>
-            <ellipse cx="0" cy="10" rx="11" ry="8" fill="#E8B0C4" transform="rotate(0 0 10)"/>
-            <ellipse cx="-8" cy="-14" rx="10" ry="7" fill="#F0C8D8" transform="rotate(-20 -8 -14)"/>
-            <ellipse cx="8" cy="-14" rx="10" ry="7" fill="#F0C8D8" transform="rotate(20 8 -14)"/>
-            <circle cx="0" cy="0" r="6" fill="#B8436C"/>
-            <circle cx="0" cy="0" r="3" fill="#8B3A5A"/>
-          </g>
+      <div class="songs-grid">
+        <div class="song-card reveal">
+          <div class="album-photo-wrapper">
+            <div class="album-photo-slot">
+              <!-- Ganti src dengan gambar album/artwork lagu 1 -->
+              <div class="album-photo-placeholder">✏️ Foto Album</div>
+            </div>
+          </div>
+          <div class="song-emoji">🎵</div>
+          <h3 class="song-title">✏️ Judul Lagu 1</h3>
+          <p class="song-artist">Artis / Penyanyi</p>
+          <p class="song-description">✏️ Cerita singkat mengapa lagu ini mengingatkanmu padanya. Bisa tentang liriknya, melodi, atau momen spesial dengannya.</p>
+          <a href="#" class="song-link" title="Dengarkan di Spotify">Dengarkan →</a>
+        </div>
 
-          <!-- ~~~ FLOWER 2: Lavender (center-top) ~~~ -->
-          <g transform="translate(250,270)">
-            <g>
-              <ellipse cx="0" cy="-20" rx="7" ry="14" fill="#9B7EC8" transform="rotate(0 0 0)"/>
-              <ellipse cx="14" cy="-14" rx="7" ry="14" fill="#B39DD4" transform="rotate(50 14 -14)"/>
-              <ellipse cx="-14" cy="-14" rx="7" ry="14" fill="#B39DD4" transform="rotate(-50 -14 -14)"/>
-              <ellipse cx="19" cy="0" rx="7" ry="13" fill="#C8B5E0" transform="rotate(80 19 0)"/>
-              <ellipse cx="-19" cy="0" rx="7" ry="13" fill="#C8B5E0" transform="rotate(-80 -19 0)"/>
-              <ellipse cx="14" cy="14" rx="7" ry="12" fill="#D4C8EA" transform="rotate(130 14 14)"/>
-              <ellipse cx="-14" cy="14" rx="7" ry="12" fill="#D4C8EA" transform="rotate(-130 -14 14)"/>
-              <ellipse cx="0" cy="18" rx="7" ry="11" fill="#DDD4EE" transform="rotate(180 0 18)"/>
-            </g>
-            <circle cx="0" cy="0" r="10" fill="#7A5AAB"/>
-            <circle cx="-2" cy="-2" r="4" fill="#F0E8F8"/>
-          </g>
+        <div class="song-card reveal">
+          <div class="album-photo-wrapper">
+            <div class="album-photo-slot">
+              <!-- Ganti src dengan gambar album/artwork lagu 2 -->
+              <div class="album-photo-placeholder">✏️ Foto Album</div>
+            </div>
+          </div>
+          <div class="song-emoji">🎵</div>
+          <h3 class="song-title">✏️ Judul Lagu 2</h3>
+          <p class="song-artist">Artis / Penyanyi</p>
+          <p class="song-description">✏️ Cerita singkat mengapa lagu ini mengingatkanmu padanya. Bisa tentang liriknya, melodi, atau momen spesial dengannya.</p>
+          <a href="#" class="song-link" title="Dengarkan di Spotify">Dengarkan →</a>
+        </div>
 
-          <!-- ~~~ FLOWER 3: Peach/Coral (right) ~~~ -->
-          <g transform="translate(295,305)">
-            <ellipse cx="0" cy="-18" rx="12" ry="18" fill="#F0A882" transform="rotate(0 0 0)"/>
-            <ellipse cx="17" cy="-8" rx="12" ry="18" fill="#E8956E" transform="rotate(72 17 -8)"/>
-            <ellipse cx="11" cy="14" rx="12" ry="18" fill="#F0A882" transform="rotate(144 11 14)"/>
-            <ellipse cx="-11" cy="14" rx="12" ry="18" fill="#E8956E" transform="rotate(216 -11 14)"/>
-            <ellipse cx="-17" cy="-8" rx="12" ry="18" fill="#F0A882" transform="rotate(288 -17 -8)"/>
-            <circle cx="0" cy="0" r="8" fill="#D4956B"/>
-            <g fill="#F8E8C0">
-              <circle cx="0" cy="-4" r="1.5"/>
-              <circle cx="3" cy="-2" r="1.5"/>
-              <circle cx="-3" cy="-2" r="1.5"/>
-              <circle cx="2" cy="2" r="1.5"/>
-              <circle cx="-2" cy="2" r="1.5"/>
-            </g>
-          </g>
-
-          <!-- ~~~ FLOWER 4: Deep Red (left side) ~~~ -->
-          <g transform="translate(190,340)">
-            <ellipse cx="0" cy="-16" rx="11" ry="16" fill="#C03060" transform="rotate(0 0 0)"/>
-            <ellipse cx="15" cy="-8" rx="11" ry="16" fill="#A82850" transform="rotate(60 15 -8)"/>
-            <ellipse cx="15" cy="8" rx="11" ry="16" fill="#C03060" transform="rotate(120 15 8)"/>
-            <ellipse cx="0" cy="16" rx="11" ry="16" fill="#A82850" transform="rotate(180 0 16)"/>
-            <ellipse cx="-15" cy="8" rx="11" ry="16" fill="#C03060" transform="rotate(240 -15 8)"/>
-            <ellipse cx="-15" cy="-8" rx="11" ry="16" fill="#A82850" transform="rotate(300 -15 -8)"/>
-            <circle cx="0" cy="0" r="7" fill="#7A1030"/>
-            <circle cx="0" cy="0" r="3" fill="#F8E8A0" opacity="0.9"/>
-          </g>
-
-          <!-- ~~~ FLOWER 5: Soft Pink Daisy (right-top) ~~~ -->
-          <g transform="translate(302,355)">
-            <g fill="#F4B8D0">
-              <ellipse cx="0" cy="-16" rx="6" ry="14"/>
-              <ellipse cx="11" cy="-12" rx="6" ry="14" transform="rotate(45 11 -12)"/>
-              <ellipse cx="15" cy="0" rx="6" ry="14" transform="rotate(90 15 0)"/>
-              <ellipse cx="11" cy="12" rx="6" ry="14" transform="rotate(135 11 12)"/>
-              <ellipse cx="0" cy="16" rx="6" ry="14"/>
-              <ellipse cx="-11" cy="12" rx="6" ry="14" transform="rotate(-135 -11 12)"/>
-              <ellipse cx="-15" cy="0" rx="6" ry="14" transform="rotate(-90 -15 0)"/>
-              <ellipse cx="-11" cy="-12" rx="6" ry="14" transform="rotate(-45 -11 -12)"/>
-            </g>
-            <circle cx="0" cy="0" r="8" fill="#E8956E"/>
-            <circle cx="0" cy="0" r="4" fill="#F8E0A0"/>
-          </g>
-
-          <!-- ~~~ FLOWER 6: White/Cream (fill) ~~~ -->
-          <g transform="translate(232,355)">
-            <g fill="#F8F0F4">
-              <ellipse cx="0" cy="-13" rx="6" ry="11"/>
-              <ellipse cx="11" cy="-7" rx="6" ry="11" transform="rotate(60 11 -7)"/>
-              <ellipse cx="11" cy="7" rx="6" ry="11" transform="rotate(120 11 7)"/>
-              <ellipse cx="0" cy="13" rx="6" ry="11"/>
-              <ellipse cx="-11" cy="7" rx="6" ry="11" transform="rotate(-120 -11 7)"/>
-              <ellipse cx="-11" cy="-7" rx="6" ry="11" transform="rotate(-60 -11 -7)"/>
-            </g>
-            <circle cx="0" cy="0" r="7" fill="#F0C050"/>
-            <circle cx="0" cy="0" r="3" fill="#F8E880"/>
-          </g>
-
-          <!-- Small buds -->
-          <g>
-            <ellipse cx="258" cy="375" rx="7" ry="10" fill="#D98EA5"/>
-            <ellipse cx="258" cy="368" rx="5" ry="5" fill="#C4607F"/>
-
-            <ellipse cx="238" cy="385" rx="6" ry="9" fill="#B39DD4"/>
-            <ellipse cx="238" cy="378" rx="4" ry="4" fill="#9B7EC8"/>
-
-            <ellipse cx="272" cy="380" rx="6" ry="9" fill="#F0A882"/>
-            <ellipse cx="272" cy="373" rx="4" ry="4" fill="#D4807A"/>
-          </g>
-
-          <!-- Greenery / Filler -->
-          <g fill="#5A9468" opacity="0.7">
-            <ellipse cx="200" cy="370" rx="12" ry="6" transform="rotate(-25 200 370)"/>
-            <ellipse cx="305" cy="370" rx="11" ry="5" transform="rotate(20 305 370)"/>
-            <ellipse cx="260" cy="390" rx="10" ry="5" transform="rotate(-10 260 390)"/>
-            <ellipse cx="225" cy="395" rx="9" ry="4" transform="rotate(-30 225 395)"/>
-          </g>
-
-          <!-- Ribbon / Wrapping -->
-          <g transform="translate(250,460)">
-            <!-- Wrapper paper -->
-            <polygon points="-70,-40 70,-40 55,40 -55,40" fill="#F0D8E8" opacity="0.9"/>
-            <polygon points="-70,-40 70,-40 55,40 -55,40" fill="none" stroke="#D4A0C0" stroke-width="1.5"/>
-            <!-- Wrapper stripes -->
-            <line x1="-35" y1="-40" x2="-28" y2="40" stroke="#D4A0C0" stroke-width="1" opacity="0.5"/>
-            <line x1="0" y1="-40" x2="0" y2="40" stroke="#D4A0C0" stroke-width="1" opacity="0.5"/>
-            <line x1="35" y1="-40" x2="28" y2="40" stroke="#D4A0C0" stroke-width="1" opacity="0.5"/>
-            <!-- Ribbon -->
-            <path d="M-70,-40 Q-10,-30 0,-50 Q10,-30 70,-40" fill="none" stroke="#C4607F" stroke-width="2.5"/>
-            <!-- Bow -->
-            <ellipse cx="-15" cy="-52" rx="18" ry="9" fill="#D98EA5" transform="rotate(-20 -15 -52)"/>
-            <ellipse cx="15" cy="-52" rx="18" ry="9" fill="#D98EA5" transform="rotate(20 15 -52)"/>
-            <ellipse cx="0" cy="-50" rx="10" ry="7" fill="#E8B0C4"/>
-          </g>
-
-          <!-- Sparkle accents -->
-          <g fill="#D4A0C0" opacity="0.7" font-size="10">
-            <text x="165" y="300">✦</text>
-            <text x="325" y="290">✦</text>
-            <text x="340" y="330">✦</text>
-            <text x="155" y="350">✦</text>
-            <text x="260" y="255">✦</text>
-          </g>
-        </svg>
+        <div class="song-card reveal">
+          <div class="album-photo-wrapper">
+            <div class="album-photo-slot">
+              <!-- Ganti src dengan gambar album/artwork lagu 3 -->
+              <div class="album-photo-placeholder">✏️ Foto Album</div>
+            </div>
+          </div>
+          <div class="song-emoji">🎵</div>
+          <h3 class="song-title">✏️ Judul Lagu 3</h3>
+          <p class="song-artist">Artis / Penyanyi</p>
+          <p class="song-description">✏️ Cerita singkat mengapa lagu ini mengingatkanmu padanya. Bisa tentang liriknya, melodi, atau momen spesial dengannya.</p>
+          <a href="#" class="song-link" title="Dengarkan di Spotify">Dengarkan →</a>
+        </div>
       </div>
     </section>
 
@@ -933,12 +1089,25 @@ Bagian tengah ini biasanya yang paling jujur.
 </div><!-- end main-content -->
 
 <script>
-// ===== LOADING SCREEN =====
-window.addEventListener('load', function() {
+// ===== LOADING SCREEN - INTERACTIVE =====
+var loadingDone = false;
+
+function proceedToEnvelope() {
+  if (loadingDone) return;
+  loadingDone = true;
+  
+  var loadingScreen = document.getElementById('loading-screen');
+  loadingScreen.style.opacity = '0';
+  loadingScreen.style.visibility = 'hidden';
+  
   setTimeout(function() {
-    document.getElementById('loading-screen').classList.add('hidden');
-  }, 2600);
-});
+    loadingScreen.style.display = 'none';
+    var gift = document.getElementById('gift-section');
+    if (gift) { gift.style.display = 'flex'; gift.classList.remove('hidden'); }
+  }, 600);
+}
+
+/* envelope JS removed */
 
 // ===== OPEN GIFT =====
 var giftOpened = false;
@@ -1012,3 +1181,4 @@ function initReveal() {
 
 </body>
 </html>
+

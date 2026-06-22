@@ -471,7 +471,7 @@ body {
   font-style: italic;
   position: relative;
   z-index: 110;
-  margin-top: 3rem;
+  margin-top: 6rem;
 }
 
 .env-next-btn:hover {

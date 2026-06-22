@@ -100,7 +100,7 @@ body {
   font-size: clamp(13px, 3vw, 17px);
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(255,210,228,0.75);
+  color: rgba(255,255,255,0.12);
   font-style: italic;
 }
 
